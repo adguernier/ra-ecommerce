@@ -11,7 +11,7 @@ export const authProvider: AuthProvider = {
     );
 
     if (user) {
-      let { password, ...userToPersist } = user;
+      const { password, ...userToPersist } = user;
       localStorage.setItem("user", JSON.stringify(userToPersist));
       return Promise.resolve();
     }
