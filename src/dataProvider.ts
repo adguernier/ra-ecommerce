@@ -1,4 +1,8 @@
-import fakeRestDataProvider from 'ra-data-fakerest';
-import data from './data.json';
+import generateData from "data-generator-retail";
+import fakeRestDataProvider from "ra-data-fakerest";
 
-export const dataProvider = fakeRestDataProvider(data, true);
+const data = generateData();
+export const dataProvider = fakeRestDataProvider(
+  data,
+  import.meta.env.MODE === "development"
+);
