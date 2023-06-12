@@ -4,5 +4,5 @@ import fakeRestDataProvider from "ra-data-fakerest";
 const data = generateData();
 export const dataProvider = fakeRestDataProvider(
   data,
-  process.env.NODE_ENV === "development"
+  import.meta.env.MODE === "development"
 );
