@@ -7,7 +7,9 @@
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "data-generator-retail": "^4.11.2",
@@ -30,6 +32,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
+    "gh-pages": "^5.0.0",
     "prettier": "2.8.8",
     "typescript": "*",
     "vite": "^3.2.0"
