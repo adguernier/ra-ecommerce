@@ -573,6 +573,11 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
+"@react-admin/ra-navigation@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.marmelab.com/download/@react-admin/ra-navigation/4.5.0/e06ff75e485f8b5878e25736c9fca3e405a6be94#e06ff75e485f8b5878e25736c9fca3e405a6be94"
+  integrity sha512-RuSpBp7DV9U5MDi+H5ws6C6r04D3K+iHYzq2WG5n2rOdGa9H/2vrz6ExCA3mnLfDkmf1ibGAmt601Q+Npcu/tg==
+
 "@remix-run/router@1.6.3":
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.3.tgz#8205baf6e17ef93be35bf62c37d2d594e9be0dad"
