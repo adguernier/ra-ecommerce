@@ -1,13 +1,7 @@
-import {
-  Admin,
-  Resource,
-  ListGuesser,
-  EditGuesser,
-  ShowGuesser,
-} from "react-admin";
+import { Admin, Resource, EditGuesser, ShowGuesser } from "react-admin";
 import { dataProvider } from "./dataProvider";
 import { authProvider } from "./authProvider";
-import { AppLayout } from "./ui";
+import { AppLayout, InvoiceList } from "./ui";
 
 export const App = () => (
   <Admin
@@ -17,7 +11,7 @@ export const App = () => (
   >
     <Resource
       name="invoices"
-      list={ListGuesser}
+      list={InvoiceList}
       edit={EditGuesser}
       show={ShowGuesser}
     />
