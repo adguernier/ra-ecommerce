@@ -21,5 +21,35 @@ export const App = () => (
       edit={EditGuesser}
       show={ShowGuesser}
     />
+    <Resource
+      name="commands"
+      list={ListGuesser}
+      edit={EditGuesser}
+      show={ShowGuesser}
+    />
+    <Resource
+      name="products"
+      list={ListGuesser}
+      edit={EditGuesser}
+      show={ShowGuesser}
+    />
+    <Resource
+      name="categories"
+      list={ListGuesser}
+      edit={EditGuesser}
+      show={ShowGuesser}
+    />
+    <Resource
+      name="customers"
+      list={ListGuesser}
+      edit={EditGuesser}
+      show={ShowGuesser}
+    />
+    <Resource
+      name="reviews"
+      list={ListGuesser}
+      edit={EditGuesser}
+      show={ShowGuesser}
+    />
   </Admin>
 );

@@ -22,8 +22,8 @@ export const AppMenu = () => (
       icon={<MonetizationOnIcon />}
     >
       <MultiLevelMenu.Item
-        name="orders"
-        to="/orders"
+        name="commands"
+        to="/commands"
         label="Orders"
         icon={<MonetizationOnIcon />}
       />
@@ -40,8 +40,8 @@ export const AppMenu = () => (
       icon={<InsertPhotoIcon />}
     >
       <MultiLevelMenu.Item
-        name="posters"
-        to="/posters"
+        name="products"
+        to="/products"
         label="Posters"
         icon={<InsertPhotoIcon />}
       />
