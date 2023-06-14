@@ -7,6 +7,7 @@ import {
   ReferenceField,
   TextField,
 } from "react-admin";
+import { InvoiceShow } from "./InvoiceShow";
 
 const filters = [
   <DateInput source="date_gte" label="Passed Since" alwaysOn />,
@@ -15,7 +16,7 @@ const filters = [
 
 export const InvoiceList = () => (
   <List filters={filters}>
-    <Datagrid rowClick="edit">
+    <Datagrid rowClick="expand" expand={<InvoiceShow />}>
       <TextField source="id" />
       <DateField source="date" />
       <ReferenceField source="command_id" reference="commands" />
