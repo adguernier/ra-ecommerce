@@ -7,7 +7,7 @@ import {
 } from "react-admin";
 import { dataProvider } from "./dataProvider";
 import { authProvider } from "./authProvider";
-import { AppLayout } from "./ui";
+import { AppLayout, OrderList } from "./ui";
 
 export const App = () => (
   <Admin
@@ -23,7 +23,7 @@ export const App = () => (
     />
     <Resource
       name="commands"
-      list={ListGuesser}
+      list={OrderList}
       edit={EditGuesser}
       show={ShowGuesser}
     />
