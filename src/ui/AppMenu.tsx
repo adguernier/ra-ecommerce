@@ -1,8 +1,12 @@
 import { MultiLevelMenu } from "@react-admin/ra-navigation";
-
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import MusicIcon from "@mui/icons-material/MusicNote";
-import PeopleIcon from "@mui/icons-material/People";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import RequestPageIcon from "@mui/icons-material/RequestPage";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import LabelIcon from "@mui/icons-material/Label";
+import InsertCommentIcon from "@mui/icons-material/InsertComment";
 
 export const AppMenu = () => (
   <MultiLevelMenu>
@@ -13,45 +17,64 @@ export const AppMenu = () => (
       icon={<DashboardIcon />}
     />
     <MultiLevelMenu.Item
-      name="songs"
-      to="/songs"
-      label="Songs"
-      icon={<MusicIcon />}
-    />
-    {/* The empty filter is required to avoid falling back to the previously set filter */}
-    <MultiLevelMenu.Item
-      name="artists"
-      to={"/artists?filter={}"}
-      label="Artists"
-      icon={<PeopleIcon />}
+      name="sales"
+      label="Sales"
+      icon={<MonetizationOnIcon />}
     >
       <MultiLevelMenu.Item
-        name="artists.rock"
-        to={'/artists?filter={"type":"Rock"}'}
-        label="Rock"
-      >
-        <MultiLevelMenu.Item
-          name="artists.rock.pop"
-          to={'/artists?filter={"type":"Pop Rock"}'}
-          label="Pop Rock"
-        />
-        <MultiLevelMenu.Item
-          name="artists.rock.folk"
-          to={'/artists?filter={"type":"Folk Rock"}'}
-          label="Folk Rock"
-        />
-      </MultiLevelMenu.Item>
+        name="orders"
+        to="/orders"
+        label="Orders"
+        icon={<MonetizationOnIcon />}
+      />
       <MultiLevelMenu.Item
-        name="artists.jazz"
-        to={'/artists?filter={"type":"Jazz"}'}
-        label="Jazz"
-      >
-        <MultiLevelMenu.Item
-          name="artists.jazz.rb"
-          to={'/artists?filter={"type":"RB"}'}
-          label="R&B"
-        />
-      </MultiLevelMenu.Item>
+        name="invoices"
+        to="/invoices"
+        label="Invoices"
+        icon={<RequestPageIcon />}
+      />
     </MultiLevelMenu.Item>
+    <MultiLevelMenu.Item
+      name="catalog"
+      label="Catalog"
+      icon={<InsertPhotoIcon />}
+    >
+      <MultiLevelMenu.Item
+        name="posters"
+        to="/posters"
+        label="Posters"
+        icon={<InsertPhotoIcon />}
+      />
+      <MultiLevelMenu.Item
+        name="categories"
+        to="/categories"
+        label="Categories"
+        icon={<BookmarkIcon />}
+      />
+    </MultiLevelMenu.Item>
+    <MultiLevelMenu.Item
+      name="customer"
+      label="Customers"
+      icon={<PeopleAltIcon />}
+    >
+      <MultiLevelMenu.Item
+        name="customers"
+        to="/customers"
+        label="Customers"
+        icon={<PeopleAltIcon />}
+      />
+      <MultiLevelMenu.Item
+        name="segments"
+        to="/segments"
+        label="Segments"
+        icon={<LabelIcon />}
+      />
+    </MultiLevelMenu.Item>
+    <MultiLevelMenu.Item
+      name="reviews"
+      label="Reviews"
+      to="/reviews"
+      icon={<InsertCommentIcon />}
+    />
   </MultiLevelMenu>
 );
