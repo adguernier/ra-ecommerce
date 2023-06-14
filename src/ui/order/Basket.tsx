@@ -17,16 +17,19 @@ export const Basket = () => {
     ids: productIds,
   });
 
+  const basketItemsWithProduct = order.basket.map(basketItem => ({
+    ...basketItem,
+    product: productsById[basketItem.product_id]
+  }));
+
+  const productsById = products.reduce((prev, current) => {
+    prev[current.id] = current;
+    return prev;
+  }, {});
+
   if (isLoading) return <Loading />;
 
   if (!products) return null;
-
-  const representation = products.map((product) =>
-    Object.assign(
-      product,
-      order.basket.find((b) => b.product_id === product.id)
-    )
-  );
 
   return (
     <TableContainer component={Paper}>
@@ -41,23 +44,23 @@ export const Basket = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {representation.map((product) => (
+          {basketItemsWithProduct.map((basketItem) => (
             <TableRow
-              key={product.product_id}
+              key={basketItem.product_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>
-                <img width="50px" src={product.thumbnail} alt="" />
+                <img width="50px" src={basketItem.product.thumbnail} alt="" />
               </TableCell>
               <TableCell component="th" scope="row">
-                <Link href={`/products/${product.id}`}>
-                  {product.reference}
+                <Link href={`/products/${basketItem.product_id}`}>
+                  {basketItem.product.reference}
                 </Link>
               </TableCell>
-              <TableCell align="right">{product.price}</TableCell>
-              <TableCell align="right">{product.quantity}</TableCell>
+              <TableCell align="right">{basketItem.product.price}</TableCell>
+              <TableCell align="right">{basketItem.quantity}</TableCell>
               <TableCell align="right">
-                {product.quantity * product.price}
+                {basketItem.quantity * basketItem.product.price}
               </TableCell>
             </TableRow>
           ))}
