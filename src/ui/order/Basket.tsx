@@ -33,6 +33,7 @@ export const Basket = () => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell></TableCell>
             <TableCell>Reference</TableCell>
             <TableCell align="right">Unit Price</TableCell>
             <TableCell align="right">Quantity</TableCell>
@@ -45,6 +46,9 @@ export const Basket = () => {
               key={product.product_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
+              <TableCell>
+                <img width="50px" src={product.thumbnail} alt="" />
+              </TableCell>
               <TableCell component="th" scope="row">
                 <Link href={`/products/${product.id}`}>
                   {product.reference}
