@@ -10,8 +10,8 @@ import {
 import { InvoiceShow } from "./InvoiceShow";
 
 const filters = [
-  <DateInput source="date_gte" label="Passed Since" alwaysOn />,
-  <DateInput source="date_lte" label="Passed Before" alwaysOn />,
+  <DateInput source="date_gte" label="Passed Since" alwaysOn key="date_gte" />,
+  <DateInput source="date_lte" label="Passed Before" alwaysOn key="date_lte" />,
 ];
 
 export const InvoiceList = () => (
