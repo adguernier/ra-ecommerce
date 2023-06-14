@@ -17,19 +17,19 @@ export const Basket = () => {
     ids: productIds,
   });
 
-  const basketItemsWithProduct = order.basket.map(basketItem => ({
-    ...basketItem,
-    product: productsById[basketItem.product_id]
-  }));
+  if (isLoading) return <Loading />;
+
+  if (!products) return null;
 
   const productsById = products.reduce((prev, current) => {
     prev[current.id] = current;
     return prev;
   }, {});
 
-  if (isLoading) return <Loading />;
-
-  if (!products) return null;
+  const basketItemsWithProduct = order.basket.map((basketItem) => ({
+    ...basketItem,
+    product: productsById[basketItem.product_id],
+  }));
 
   return (
     <TableContainer component={Paper}>
