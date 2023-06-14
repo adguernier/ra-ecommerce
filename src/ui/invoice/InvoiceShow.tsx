@@ -2,7 +2,7 @@ import {
   DateField,
   ReferenceField,
   SimpleShowLayout,
-  useRecordContext,
+  TextField,
 } from "react-admin";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,7 +12,6 @@ import Divider from "@mui/material/Divider";
 import { Basket } from "../order";
 
 export const InvoiceShow = () => {
-  const record = useRecordContext();
   return (
     <SimpleShowLayout>
       <Card sx={{ minWidth: 275 }}>
@@ -27,7 +26,9 @@ export const InvoiceShow = () => {
             }}
           >
             <Typography variant="h6">Posters Galore</Typography>
-            <Typography variant="h6">Invoice {record.id}</Typography>
+            <Typography variant="h6">
+              Invoice <TextField source="id" variant="h6" />
+            </Typography>
           </Stack>
           <Divider />
           <Stack
