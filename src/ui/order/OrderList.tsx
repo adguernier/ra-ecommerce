@@ -8,6 +8,7 @@ import {
   List,
   NumberField,
   ReferenceField,
+  SelectInput,
   SingleFieldList,
   TextField,
 } from "react-admin";
@@ -49,6 +50,16 @@ const TabPanel = (props: TabPanelProps) => {
   );
 };
 
+const choices = [
+  { id: "ordered", name: "Ordered" },
+  { id: "cancelled", name: "Cancelled" },
+  { id: "delivered", name: "Delivered" },
+];
+
+const filters = [
+  <SelectInput source="status" choices={choices} key="status" />,
+];
+
 export const OrderList = () => {
   const [value, setValue] = useState(0);
 
@@ -58,6 +69,26 @@ export const OrderList = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
+      <List filters={filters}>
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="reference" />
+          <DateField source="date" />
+          <ReferenceField source="customer_id" reference="customers" />
+          <ArrayField source="basket">
+            <SingleFieldList>
+              <ChipField source="product_id" />
+            </SingleFieldList>
+          </ArrayField>
+          <NumberField source="total_ex_taxes" />
+          <NumberField source="delivery_fees" />
+          <NumberField source="tax_rate" />
+          <NumberField source="taxes" />
+          <NumberField source="total" />
+          <TextField source="status" />
+          <BooleanField source="returned" />
+        </Datagrid>
+      </List>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -69,28 +100,7 @@ export const OrderList = () => {
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <List>
-          <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="reference" />
-            <DateField source="date" />
-            <ReferenceField source="customer_id" reference="customers" />
-            <ArrayField source="basket">
-              <SingleFieldList>
-                <ChipField source="product_id" />
-              </SingleFieldList>
-            </ArrayField>
-            <NumberField source="total_ex_taxes" />
-            <NumberField source="delivery_fees" />
-            <NumberField source="tax_rate" />
-            <NumberField source="taxes" />
-            <NumberField source="total" />
-            <TextField source="status" />
-            <BooleanField source="returned" />
-          </Datagrid>
-        </List>
-      </TabPanel>
+      <TabPanel value={value} index={0}></TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
