@@ -1,14 +1,20 @@
 import {
   Datagrid,
   DateField,
+  DateInput,
   List,
   NumberField,
   ReferenceField,
   TextField,
 } from "react-admin";
 
+const filters = [
+  <DateInput source="date_gte" label="Passed Since" alwaysOn />,
+  <DateInput source="date_lte" label="Passed Before" alwaysOn />,
+];
+
 export const InvoiceList = () => (
-  <List>
+  <List filters={filters}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <DateField source="date" />
