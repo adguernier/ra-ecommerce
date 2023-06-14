@@ -8,6 +8,7 @@ import {
 import { dataProvider } from "./dataProvider";
 import { authProvider } from "./authProvider";
 import { AppLayout } from "./ui";
+import { CustomerList } from "./ui/customer/CustomerList";
 
 export const App = () => (
   <Admin
@@ -41,7 +42,7 @@ export const App = () => (
     />
     <Resource
       name="customers"
-      list={ListGuesser}
+      list={CustomerList}
       edit={EditGuesser}
       show={ShowGuesser}
     />
