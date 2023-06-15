@@ -1,5 +1,6 @@
 import {
   Datagrid,
+  FunctionField,
   ImageField,
   RecordContextProvider,
   ReferenceArrayField,
@@ -27,6 +28,19 @@ export const Basket = () => {
           <ImageField source="thumbnail" />
           <TextField source="reference" />
           <TextField source="price" />
+          <FunctionField
+            label="Quantity"
+            render={(record) =>
+              order.basket.find((b) => record.id === b.product_id).quantity
+            }
+          />
+          <FunctionField
+            label="Quantity"
+            render={(record) =>
+              order.basket.find((b) => record.id === b.product_id).quantity *
+              record.price
+            }
+          />
         </Datagrid>
       </ReferenceArrayField>
     </RecordContextProvider>
