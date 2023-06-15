@@ -6,6 +6,7 @@ import {
   Datagrid,
   DateField,
   List,
+  ListProps,
   NumberField,
   ReferenceField,
   SelectInput,
@@ -14,7 +15,6 @@ import {
 } from "react-admin";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 interface TabPanelProps {
@@ -41,11 +41,7 @@ const TabPanel = (props: TabPanelProps) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 };
@@ -57,7 +53,7 @@ const choices = [
 ];
 
 const filters = [
-  <SelectInput source="status" choices={choices} key="status" />,
+  <SelectInput hidden={true} source="status" choices={choices} key="status" />,
 ];
 
 export const OrderList = () => {
@@ -69,26 +65,6 @@ export const OrderList = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <List filters={filters}>
-        <Datagrid rowClick="edit">
-          <TextField source="id" />
-          <TextField source="reference" />
-          <DateField source="date" />
-          <ReferenceField source="customer_id" reference="customers" />
-          <ArrayField source="basket">
-            <SingleFieldList>
-              <ChipField source="product_id" />
-            </SingleFieldList>
-          </ArrayField>
-          <NumberField source="total_ex_taxes" />
-          <NumberField source="delivery_fees" />
-          <NumberField source="tax_rate" />
-          <NumberField source="taxes" />
-          <NumberField source="total" />
-          <TextField source="status" />
-          <BooleanField source="returned" />
-        </Datagrid>
-      </List>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -100,7 +76,9 @@ export const OrderList = () => {
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}></TabPanel>
+      <TabPanel value={value} index={0}>
+        <OrderedList filter={{ status: "ordered" }} />
+      </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
@@ -108,5 +86,30 @@ export const OrderList = () => {
         Item Three
       </TabPanel>
     </Box>
+  );
+};
+
+const OrderedList = (props: Omit<ListProps, "children">) => {
+  return (
+    <List {...props}>
+      <Datagrid rowClick="edit">
+        <TextField source="id" />
+        <TextField source="reference" />
+        <DateField source="date" />
+        <ReferenceField source="customer_id" reference="customers" />
+        <ArrayField source="basket">
+          <SingleFieldList>
+            <ChipField source="product_id" />
+          </SingleFieldList>
+        </ArrayField>
+        <NumberField source="total_ex_taxes" />
+        <NumberField source="delivery_fees" />
+        <NumberField source="tax_rate" />
+        <NumberField source="taxes" />
+        <NumberField source="total" />
+        <TextField source="status" />
+        <BooleanField source="returned" />
+      </Datagrid>
+    </List>
   );
 };
