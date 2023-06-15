@@ -51,7 +51,7 @@ export const InvoiceShow = () => {
             </Stack>
           </Stack>
 
-          <ReferenceField source="command_id" reference="commands">
+          <ReferenceField source="command_id" reference="commands" link={false}>
             <Basket />
           </ReferenceField>
         </CardContent>
