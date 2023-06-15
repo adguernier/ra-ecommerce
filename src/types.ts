@@ -3,7 +3,7 @@ export interface Order {
   reference: string;
   string: string;
   customer_id: number;
-  basket: Basket[];
+  basket: BasketItem[];
   total_ex_taxes: number;
   delivery_fees: number;
   tax_rate: number;
@@ -13,7 +13,7 @@ export interface Order {
   returned: boolean;
 }
 
-export interface Basket {
+export interface BasketItem {
   product_id: number;
   quantity: number;
 }

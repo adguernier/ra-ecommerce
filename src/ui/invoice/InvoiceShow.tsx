@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import { Basket } from "../order";
+import { BasketDetail } from "../order";
 
 export const InvoiceShow = () => {
   return (
@@ -52,7 +52,7 @@ export const InvoiceShow = () => {
           </Stack>
 
           <ReferenceField source="command_id" reference="commands" link={false}>
-            <Basket />
+            <BasketDetail />
           </ReferenceField>
         </CardContent>
       </Card>
