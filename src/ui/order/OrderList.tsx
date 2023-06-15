@@ -3,6 +3,7 @@ import {
   ArrayField,
   BooleanField,
   ChipField,
+  Count,
   Datagrid,
   DateField,
   List,
@@ -46,16 +47,6 @@ const TabPanel = (props: TabPanelProps) => {
   );
 };
 
-const choices = [
-  { id: "ordered", name: "Ordered" },
-  { id: "cancelled", name: "Cancelled" },
-  { id: "delivered", name: "Delivered" },
-];
-
-const filters = [
-  <SelectInput hidden={true} source="status" choices={choices} key="status" />,
-];
-
 export const OrderList = () => {
   const [value, setValue] = useState(0);
 
@@ -71,25 +62,40 @@ export const OrderList = () => {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label={<TabLabel filter="ordered" />} {...a11yProps(0)} />
+          <Tab label={<TabLabel filter="delivered" />} {...a11yProps(1)} />
+          <Tab label={<TabLabel filter="cancelled" />} {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <OrderedList filter={{ status: "ordered" }} />
+        <TabList filter={{ status: "ordered" }} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <TabList filter={{ status: "delivered" }} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <TabList filter={{ status: "cancelled" }} />
       </TabPanel>
     </Box>
   );
 };
 
-const OrderedList = (props: Omit<ListProps, "children">) => {
+interface TabLabelProps {
+  children?: React.ReactNode;
+  filter: string;
+}
+
+const TabLabel = (props: TabLabelProps) => {
+  const { filter, children, ...rest } = props;
+  const count = <Count filter={{ status: filter }} />;
+  return (
+    <span>
+      {filter.toUpperCase()} ({count}) {children}
+    </span>
+  );
+};
+
+const TabList = (props: Omit<ListProps, "children">) => {
   return (
     <List {...props}>
       <Datagrid rowClick="edit">
