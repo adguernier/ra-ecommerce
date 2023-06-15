@@ -36,8 +36,10 @@ export const Basket = () => {
           <FunctionField
             label="Quantity"
             render={(record) =>
-              order.basket.find((b) => record.id === b.product_id).quantity *
-              record.price
+              Number(
+                order.basket.find((b) => record.id === b.product_id).quantity *
+                  record.price
+              ).toFixed(2)
             }
           />
         </ReferenceField>
