@@ -1,7 +1,7 @@
 export interface Order {
   id: number;
   reference: string;
-  string: string;
+  date: string;
   customer_id: number;
   basket: BasketItem[];
   total_ex_taxes: number;
