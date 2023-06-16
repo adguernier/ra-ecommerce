@@ -1,19 +1,17 @@
 import { SyntheticEvent, useState } from "react";
 import {
-  ArrayField,
   BooleanField,
-  ChipField,
   Count,
   CreateButton,
   DatagridConfigurable,
   DatagridConfigurableProps,
   DateField,
   ExportButton,
+  FunctionField,
   List,
   NumberField,
   ReferenceField,
   SelectColumnsButton,
-  SingleFieldList,
   TextField,
   TopToolbar,
 } from "react-admin";
@@ -21,6 +19,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { AddressField } from "../customField";
+import { Order } from "../../types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -146,11 +145,12 @@ const TabList = (props: DatagridConfigurableProps) => {
       >
         <AddressField />
       </ReferenceField>
-      <ArrayField source="basket">
-        <SingleFieldList>
-          <ChipField source="product_id" />
-        </SingleFieldList>
-      </ArrayField>
+      <FunctionField
+        label="Nb Items"
+        render={(record: Order) => {
+          return record.basket.length;
+        }}
+      />
       <NumberField source="total_ex_taxes" />
       <NumberField source="delivery_fees" />
       <NumberField source="tax_rate" />
