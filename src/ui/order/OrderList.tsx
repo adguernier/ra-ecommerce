@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import {
+  AutocompleteInput,
   BooleanField,
   Count,
   CreateButton,
@@ -11,6 +12,8 @@ import {
   List,
   NumberField,
   ReferenceField,
+  ReferenceInput,
+  SearchInput,
   SelectColumnsButton,
   TextField,
   TopToolbar,
@@ -18,7 +21,7 @@ import {
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { AddressField } from "../customField";
+import { AddressField, FullNameField } from "../customField";
 import { Order } from "../../types";
 
 interface TabPanelProps {
@@ -73,6 +76,21 @@ export const OrderList = () => {
     <Box sx={{ width: "100%" }}>
       <List
         filter={filter}
+        filters={[
+          <SearchInput source="q" alwaysOn key="q" />,
+          <ReferenceInput
+            reference="customers"
+            source="customer_id"
+            key="customer"
+            alwaysOn
+          >
+            <AutocompleteInput
+              label="Customer"
+              optionText={<FullNameField />}
+              inputText={(choice) => `${choice.first_name} ${choice.last_name}`}
+            />
+          </ReferenceInput>,
+        ]}
         actions={
           <TopToolbar>
             <SelectColumnsButton preferenceKey={filter.status} />
