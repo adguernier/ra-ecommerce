@@ -5,7 +5,7 @@ import {
   ChipField,
   Count,
   CreateButton,
-  Datagrid,
+  DatagridConfigurable,
   DateField,
   ExportButton,
   List,
@@ -124,10 +124,22 @@ const TabLabel = (props: TabLabelProps) => {
 
 const TabList = () => {
   return (
-    <Datagrid rowClick="edit">
+    <DatagridConfigurable
+      omit={[
+        "id",
+        "basket",
+        "total_ex_taxes",
+        "delivery_fees",
+        "tax_rate",
+        "taxes",
+        "status",
+        "returned",
+      ]}
+      rowClick="edit"
+    >
       <TextField source="id" />
-      <TextField source="reference" />
       <DateField source="date" />
+      <TextField source="reference" />
       <ReferenceField source="customer_id" reference="customers" />
       <ArrayField source="basket">
         <SingleFieldList>
@@ -141,6 +153,6 @@ const TabList = () => {
       <NumberField source="total" />
       <TextField source="status" />
       <BooleanField source="returned" />
-    </Datagrid>
+    </DatagridConfigurable>
   );
 };
