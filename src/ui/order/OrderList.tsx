@@ -61,22 +61,23 @@ export const OrderList = () => {
   ];
 
   const [value, setValue] = useState(0);
-  const [filter, setFilter] = useState({ status: "ordered" });
+  let filter = { status: "ordered" };
+
+  switch (value) {
+    default:
+    case 0:
+      filter = { status: "ordered" };
+      break;
+    case 1:
+      filter = { status: "delivered" };
+      break;
+    case 2:
+      filter = { status: "cancelled" };
+      break;
+  }
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
-    switch (newValue) {
-      default:
-      case 0:
-        setFilter({ status: "ordered" });
-        break;
-      case 1:
-        setFilter({ status: "delivered" });
-        break;
-      case 2:
-        setFilter({ status: "cancelled" });
-        break;
-    }
   };
 
   return (
