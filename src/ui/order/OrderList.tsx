@@ -96,6 +96,7 @@ export const OrderList = () => {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            variant="fullWidth"
           >
             <Tab label={<TabLabel filter="ordered" />} {...a11yProps(0)} />
             <Tab label={<TabLabel filter="delivered" />} {...a11yProps(1)} />
