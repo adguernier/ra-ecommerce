@@ -6,6 +6,7 @@ import {
   Count,
   CreateButton,
   DatagridConfigurable,
+  DatagridConfigurableProps,
   DateField,
   ExportButton,
   List,
@@ -50,6 +51,15 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 export const OrderList = () => {
+  const defaultOmits = [
+    "basket",
+    "total_ex_taxes",
+    "delivery_fees",
+    "tax_rate",
+    "taxes",
+    "returned",
+  ];
+
   const [value, setValue] = useState(0);
   const [filter, setFilter] = useState({ status: "ordered" });
 
@@ -75,7 +85,7 @@ export const OrderList = () => {
         filter={filter}
         actions={
           <TopToolbar>
-            <SelectColumnsButton />
+            <SelectColumnsButton preferenceKey={filter.status} />
             <CreateButton />
             <ExportButton />
           </TopToolbar>
@@ -94,13 +104,16 @@ export const OrderList = () => {
         </Box>
 
         <TabPanel value={value} index={0}>
-          <TabList />
+          <TabList preferenceKey="ordered" omit={defaultOmits} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TabList />
+          <TabList
+            preferenceKey="delivered"
+            omit={defaultOmits.filter((omit) => omit !== "returned")}
+          />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <TabList />
+          <TabList preferenceKey="cancelled" omit={defaultOmits} />
         </TabPanel>
       </List>
     </Box>
@@ -122,22 +135,9 @@ const TabLabel = (props: TabLabelProps) => {
   );
 };
 
-const TabList = () => {
+const TabList = (props: DatagridConfigurableProps) => {
   return (
-    <DatagridConfigurable
-      omit={[
-        "id",
-        "basket",
-        "total_ex_taxes",
-        "delivery_fees",
-        "tax_rate",
-        "taxes",
-        "status",
-        "returned",
-      ]}
-      rowClick="edit"
-    >
-      <TextField source="id" />
+    <DatagridConfigurable rowClick="edit" {...props}>
       <DateField source="date" />
       <TextField source="reference" />
       <ReferenceField source="customer_id" reference="customers" />
@@ -151,8 +151,9 @@ const TabList = () => {
       <NumberField source="tax_rate" />
       <NumberField source="taxes" />
       <NumberField source="total" />
-      <TextField source="status" />
-      <BooleanField source="returned" />
+      {props.preferenceKey === "delivered" && (
+        <BooleanField source="returned" />
+      )}
     </DatagridConfigurable>
   );
 };
