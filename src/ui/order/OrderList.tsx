@@ -63,20 +63,7 @@ const defaultOmits = [
 
 export const OrderList = () => {
   const [value, setValue] = useState(0);
-  let filter = { status: "ordered" };
-
-  switch (value) {
-    default:
-    case 0:
-      filter = { status: "ordered" };
-      break;
-    case 1:
-      filter = { status: "delivered" };
-      break;
-    case 2:
-      filter = { status: "cancelled" };
-      break;
-  }
+  const filter = { status: tabs[value] };
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
