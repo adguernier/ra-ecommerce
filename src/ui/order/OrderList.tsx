@@ -4,15 +4,17 @@ import {
   BooleanField,
   ChipField,
   Count,
+  CreateButton,
   Datagrid,
   DateField,
+  ExportButton,
   List,
-  ListProps,
   NumberField,
   ReferenceField,
-  SelectInput,
+  SelectColumnsButton,
   SingleFieldList,
   TextField,
+  TopToolbar,
 } from "react-admin";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -49,33 +51,58 @@ const TabPanel = (props: TabPanelProps) => {
 
 export const OrderList = () => {
   const [value, setValue] = useState(0);
+  const [filter, setFilter] = useState({ status: "ordered" });
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    switch (newValue) {
+      default:
+      case 0:
+        setFilter({ status: "ordered" });
+        break;
+      case 1:
+        setFilter({ status: "delivered" });
+        break;
+      case 2:
+        setFilter({ status: "cancelled" });
+        break;
+    }
   };
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label={<TabLabel filter="ordered" />} {...a11yProps(0)} />
-          <Tab label={<TabLabel filter="delivered" />} {...a11yProps(1)} />
-          <Tab label={<TabLabel filter="cancelled" />} {...a11yProps(2)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <TabList filter={{ status: "ordered" }} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <TabList filter={{ status: "delivered" }} />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <TabList filter={{ status: "cancelled" }} />
-      </TabPanel>
+      <List
+        filter={filter}
+        actions={
+          <TopToolbar>
+            <SelectColumnsButton />
+            <CreateButton />
+            <ExportButton />
+          </TopToolbar>
+        }
+      >
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label={<TabLabel filter="ordered" />} {...a11yProps(0)} />
+            <Tab label={<TabLabel filter="delivered" />} {...a11yProps(1)} />
+            <Tab label={<TabLabel filter="cancelled" />} {...a11yProps(2)} />
+          </Tabs>
+        </Box>
+
+        <TabPanel value={value} index={0}>
+          <TabList />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TabList />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <TabList />
+        </TabPanel>
+      </List>
     </Box>
   );
 };
@@ -95,27 +122,25 @@ const TabLabel = (props: TabLabelProps) => {
   );
 };
 
-const TabList = (props: Omit<ListProps, "children">) => {
+const TabList = () => {
   return (
-    <List {...props}>
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="reference" />
-        <DateField source="date" />
-        <ReferenceField source="customer_id" reference="customers" />
-        <ArrayField source="basket">
-          <SingleFieldList>
-            <ChipField source="product_id" />
-          </SingleFieldList>
-        </ArrayField>
-        <NumberField source="total_ex_taxes" />
-        <NumberField source="delivery_fees" />
-        <NumberField source="tax_rate" />
-        <NumberField source="taxes" />
-        <NumberField source="total" />
-        <TextField source="status" />
-        <BooleanField source="returned" />
-      </Datagrid>
-    </List>
+    <Datagrid rowClick="edit">
+      <TextField source="id" />
+      <TextField source="reference" />
+      <DateField source="date" />
+      <ReferenceField source="customer_id" reference="customers" />
+      <ArrayField source="basket">
+        <SingleFieldList>
+          <ChipField source="product_id" />
+        </SingleFieldList>
+      </ArrayField>
+      <NumberField source="total_ex_taxes" />
+      <NumberField source="delivery_fees" />
+      <NumberField source="tax_rate" />
+      <NumberField source="taxes" />
+      <NumberField source="total" />
+      <TextField source="status" />
+      <BooleanField source="returned" />
+    </Datagrid>
   );
 };
