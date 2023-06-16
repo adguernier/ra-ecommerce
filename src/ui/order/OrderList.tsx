@@ -20,6 +20,7 @@ import {
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { AddressField } from "../customField";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -137,6 +138,14 @@ const TabList = (props: DatagridConfigurableProps) => {
       <DateField source="date" />
       <TextField source="reference" />
       <ReferenceField source="customer_id" reference="customers" />
+      <ReferenceField
+        source="customer_id"
+        reference="customers"
+        label="Address"
+        link={false}
+      >
+        <AddressField />
+      </ReferenceField>
       <ArrayField source="basket">
         <SingleFieldList>
           <ChipField source="product_id" />
