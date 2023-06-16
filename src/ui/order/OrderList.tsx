@@ -3,18 +3,21 @@ import {
   AutocompleteInput,
   BooleanField,
   Count,
-  CreateButton,
   DatagridConfigurable,
   DatagridConfigurableProps,
   DateField,
+  DateInput,
   ExportButton,
+  FilterButton,
   FunctionField,
   List,
   NumberField,
+  NumberInput,
   ReferenceField,
   ReferenceInput,
   SearchInput,
   SelectColumnsButton,
+  SelectInput,
   TextField,
   TopToolbar,
 } from "react-admin";
@@ -82,7 +85,6 @@ export const OrderList = () => {
             reference="customers"
             source="customer_id"
             key="customer"
-            alwaysOn
           >
             <AutocompleteInput
               label="Customer"
@@ -90,11 +92,22 @@ export const OrderList = () => {
               inputText={(choice) => `${choice.first_name} ${choice.last_name}`}
             />
           </ReferenceInput>,
+          <SelectInput
+            source="returned"
+            choices={[
+              { id: true, name: "Yes" },
+              { id: false, name: "No" },
+            ]}
+            key="returned"
+          />,
+          <NumberInput source="total_gte" key="total" label="Min amount" />,
+          <DateInput source="date_gte" key="date_gte" label="Passed since" />,
+          <DateInput source="date_lte" key="date_lte" label="Passed before" />,
         ]}
         actions={
           <TopToolbar>
             <SelectColumnsButton preferenceKey={filter.status} />
-            <CreateButton />
+            <FilterButton />
             <ExportButton />
           </TopToolbar>
         }
