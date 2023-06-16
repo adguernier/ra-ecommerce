@@ -50,16 +50,18 @@ const TabPanel = (props: TabPanelProps) => {
   );
 };
 
-export const OrderList = () => {
-  const defaultOmits = [
-    "basket",
-    "total_ex_taxes",
-    "delivery_fees",
-    "tax_rate",
-    "taxes",
-    "returned",
-  ];
+const tabs = ["ordered", "delivered", "cancelled"];
 
+const defaultOmits = [
+  "basket",
+  "total_ex_taxes",
+  "delivery_fees",
+  "tax_rate",
+  "taxes",
+  "returned",
+];
+
+export const OrderList = () => {
   const [value, setValue] = useState(0);
   let filter = { status: "ordered" };
 
@@ -99,24 +101,21 @@ export const OrderList = () => {
             aria-label="basic tabs example"
             variant="fullWidth"
           >
-            <Tab label={<TabLabel filter="ordered" />} {...a11yProps(0)} />
-            <Tab label={<TabLabel filter="delivered" />} {...a11yProps(1)} />
-            <Tab label={<TabLabel filter="cancelled" />} {...a11yProps(2)} />
+            {tabs.map((tab, index) => (
+              <Tab
+                key={index}
+                label={<TabLabel filter={tab} />}
+                {...a11yProps(index)}
+              />
+            ))}
           </Tabs>
         </Box>
 
-        <TabPanel value={value} index={0}>
-          <TabList preferenceKey="ordered" omit={defaultOmits} />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <TabList
-            preferenceKey="delivered"
-            omit={defaultOmits.filter((omit) => omit !== "returned")}
-          />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <TabList preferenceKey="cancelled" omit={defaultOmits} />
-        </TabPanel>
+        {tabs.map((tab, index) => (
+          <TabPanel value={value} index={index} key={index}>
+            <TabList preferenceKey={tab} omit={defaultOmits} />
+          </TabPanel>
+        ))}
       </List>
     </Box>
   );
@@ -139,7 +138,15 @@ const TabLabel = (props: TabLabelProps) => {
 
 const TabList = (props: DatagridConfigurableProps) => {
   return (
-    <DatagridConfigurable rowClick="edit" {...props}>
+    <DatagridConfigurable
+      rowClick="edit"
+      omit={
+        props.preferenceKey === "delivered"
+          ? props.omit?.filter((omit) => omit !== "returned")
+          : props.omit
+      }
+      {...props}
+    >
       <DateField source="date" />
       <TextField source="reference" />
       <ReferenceField source="customer_id" reference="customers" />
