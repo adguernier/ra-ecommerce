@@ -1,4 +1,4 @@
-import { TitlePortal, AppBar as RaAppBar } from "react-admin";
+import { TitlePortal, AppBar as RaAppBar, InspectorButton } from "react-admin";
 import { Box } from "@mui/material";
 import Logo from "./Logo";
 export const AppBar = () => {
@@ -7,6 +7,7 @@ export const AppBar = () => {
       <TitlePortal />
       <Logo />
       <Box flex="1" />
+      <InspectorButton />
     </RaAppBar>
   );
 };
